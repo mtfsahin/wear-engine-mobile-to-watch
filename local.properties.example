@@ -1,0 +1,21 @@
+# Copy this file to local.properties and fill in your own values.
+# local.properties is in .gitignore, so nothing here reaches the repository.
+
+# Android SDK location. Android Studio writes this line for you.
+#sdk.dir=/Users/you/Library/Android/sdk
+
+# Wear Engine app ID from AppGallery Connect.
+wearengine.appId=
+
+# Huawei Health Kit Cloud
+# App ID from AppGallery Connect. Used as client_id and as the SDK clientId.
+healthkit.clientId=
+# App secret. Only Method 1 needs it. A production app keeps it on its own backend.
+healthkit.clientSecret=
+# This app's deep link. Method 1 registers it as the callback URL, Method 2 as the
+# Scheme URL. The manifest builds its intent filter from this same value.
+healthkit.deepLink=wearhealthkit://oauth/callback
+# Scheme Secret that AppGallery Connect gives you for the Scheme URL. Method 2 only.
+healthkit.schemeSecret=
+# Method the app starts with: WEB_OAUTH or LOGIN_FREE_SDK. It can also be changed in the app.
+healthkit.authMethod=WEB_OAUTH

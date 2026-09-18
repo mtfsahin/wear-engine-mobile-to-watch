@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Add permission -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="com.huawei.wearengine.permission.DEVICE_MANAGER" />
+    <!-- Needed by the Huawei Health Kit Cloud OAuth 2.0 + REST integration (healthkit/) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.WearEngineAndroidLiteFileMessageSender"
+        tools:targetApi="31">
+
+        <!-- Wear Engine app ID. Set wearengine.appId in local.properties. -->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="${wearEngineAppId}" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.WearEngineAndroidLiteFileMessageSender">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+              The deep link that brings the authorization code back. Both methods use it:
+              Method 1 registers it as the callback URL, Method 2 as the Scheme URL. Its
+              parts come from healthkit.deepLink in local.properties, so the manifest and
+              HealthKitConfig can never drift apart. launchMode="singleTask" above keeps
+              the answer in the running activity, in onNewIntent.
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="${healthKitScheme}"
+                    android:host="${healthKitHost}"
+                    android:path="${healthKitPath}" />
+            </intent-filter>
+        </activity>
+    </application>
+
+    <queries>
+        <package android:name="com.huawei.health" />
+    </queries>
+
+</manifest>
